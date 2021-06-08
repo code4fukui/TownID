@@ -5,13 +5,15 @@ let city = null;
 let town = {}; // cache
 const init = async () => {
   if (!pref) {
-    const base = "https://code4fukui.github.io/TownID/";
-    pref = await fetchCSV(base + "data/pref.csv"); //  0.6kb
-    city = await fetchCSV(base + "data/city.csv"); // 55kb
+    pref = await fetchCSV("data/pref.csv"); //  0.6kb
+    city = await fetchCSV("data/city.csv"); // 55kb
   }
 };
 
-const fetchCSV = async (url) => CSV.toJSON(await CSV.fetch(url));
+const fetchCSV = async (url) => {
+  const base = "https://code4fukui.github.io/TownID/";
+  return CSV.toJSON(await CSV.fetch(base + url));
+};
 
 class TownID {
   static async find(spref, scity, stown) {
