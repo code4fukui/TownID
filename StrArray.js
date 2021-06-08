@@ -47,6 +47,25 @@ class StrArray {
     }
     return 0;
   }
+  static getUnique(strar, s) {
+    let max = 0;
+    A: for (const s2 of strar) {
+      if (s == s2) {
+        continue;
+      }
+      const len = Math.min(s.length, s2.length);
+      for (let j = 0; j < len; j++) {
+        if (s[j] != s2[j]) {
+          if (j > max) {
+            max = j;
+            continue A;
+          }
+          break;
+        }
+      }
+    }
+    return s.substring(0, max + 1);
+  }
 }
 
 export { StrArray };

@@ -18,6 +18,8 @@ import { StrArray } from "./StrArray.js";
     "大字・字・丁目区分コード": "1"
 */
 
+const all = [];
+
 const files = await readDir("temp");
 for (const f of files) {
   if (!f.endsWith(".zip")) {
@@ -28,8 +30,6 @@ for (const f of files) {
   const filenames = zips.getFilenames();
   const file = filenames.find(f => f.endsWith(".csv"));
   const txt = SJIS.decodeAuto(zips.decompress(file));
-  //console.log(txt);
-
   const data = CSV.parse(txt);
   
   const fn = f.substring(f.lastIndexOf("/") + 1);
@@ -42,20 +42,23 @@ for (const f of files) {
     const nu = StrArray.getNotUnique(codes);
     console.log("is not unique: " + fn, nu);
     throw new Error("is not unique: " + fn);
-    continue;
   }
-  const prefix = StrArray.getPrefix(codes);
-  const level = StrArray.getUniqueLength(codes);
-  data.forEach(d => {
-    const geo3x3 = Geo3x3.encode(d.緯度, d.経度, level);
-    d.geo3x3 = geo3x3;
-    //d.localcode = prefix + "_" + d.geo3x3.substring(prefix.length);
-    //d.localcode = geo3x3.substring(prefix.length);
-  });
 
-  //console.log(data.map(d => [d.大字町丁目名, d.geo3x3, d.localcode]));
-  //console.log(data.map(d => [d.大字町丁目名, d.geo3x3, d.localcode]));
-  const csvfn = fn.substring(0, 2) + ".csv";
-  console.log(level, csvfn);
-  await Deno.writeTextFile("data/" + csvfn, CSV.stringify(data));
+  //const prefix = StrArray.getPrefix(codes);
+  //const level = StrArray.getUniqueLength(codes);
+
+  data.forEach(d => {
+    all.push({
+      pref: d.都道府県名,
+      city: d.市区町村名,
+      town: d.大字町丁目名,
+      geo3x3: Geo3x3.encode(d.緯度, d.経度, prelevel),
+    });
+  });
 }
+
+const codes = all.map(d => d.geo3x3);
+all.forEach(d => d.geo3x3 = StrArray.getUnique(codes, d.geo3x3));
+console.log(all.length);
+
+await Deno.writeTextFile("data/all.csv", CSV.stringify(all));
