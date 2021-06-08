@@ -4,7 +4,7 @@
 
 ```js
 import { TownID } from "https://code4fukui.github.io/TownID/TownID.js";
-const townid = TownID.find("福井県", "鯖江市", "新横江一丁目");
+const townid = await TownID.find("福井県", "鯖江市", "新横江一丁目");
 console.log(townid);
 ```
 
@@ -12,7 +12,7 @@ console.log(townid);
 
 ```js
 import { TownID } from "https://code4fukui.github.io/TownID/TownID.js";
-const prefs = TownID.getPrefs();
+const prefs = await TownID.getPrefs();
 console.log(prefs);
 ```
 
@@ -20,7 +20,7 @@ console.log(prefs);
 
 ```js
 import { TownID } from "https://code4fukui.github.io/TownID/TownID.js";
-const cities = TownID.getCities("福井県");
+const cities = await TownID.getCities("福井県");
 console.log(cities);
 ```
 
@@ -28,7 +28,6 @@ console.log(cities);
 
 ```js
 import { TownID } from "https://code4fukui.github.io/TownID/TownID.js";
-const towns = TownID.getTowns("福井県", "鯖江市");
+const towns = await TownID.getTowns("福井県", "鯖江市");
 console.log(towns);
 ```
-
