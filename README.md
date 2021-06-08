@@ -2,6 +2,8 @@
 
 - 日本のまち、約19万の日本のまちに、ユニークなID「TownID」を振りました。
 - TownIDは[Geo3x3](https://geo3x3.com/)になっているので大まかな場所も分かります。
+- 桁数（[Geo3x3](https://geo3x3.com/)のレベル)は、4桁〜14桁です。
+- データソースは、[国土交通省 位置参照情報 ダウンロードサービス](https://nlftp.mlit.go.jp/cgi-bin/isj/dls/_choose_method.cgi)です。
 
 |区分|数|
 |---|--|
