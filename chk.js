@@ -1,20 +1,23 @@
 import { CSV } from "https://js.sabae.cc/CSV.js";
-import { StrArray } from "./StrArray.js";
 
-const data = CSV.toJSON(await CSV.fetch("data/x-all.csv"));
-/*
+const pref = CSV.toJSON(await CSV.fetch("data/pref.csv"));
+console.log("n_pref", pref.length);
+
+const city = CSV.toJSON(await CSV.fetch("data/city.csv"));
+console.log("n_city", city.length);
+
+const data = CSV.toJSON(await CSV.fetch("data/all.csv"));
+console.log("n_town", data.length);
+
+let min = 100;
+let max = 0;
 for (const d of data) {
-  console.log(d.geo3x3.length);
+  const len = d.geo3x3.length;
+  if (len > max) {
+    max = len;
+  } else if (len < min) {
+    min = len;
+  }
 }
-*/
-const codes = data.map(d => d.geo3x3);
-//console.log(codes);
-//all.forEach(d => d.geo3x3 = StrArray.getUnique(codes, d.geo3x3));
-console.log(StrArray.getUnique(codes, "E913735343784295"));
-/*
-console.log(all.length);
-*/
-
-data.forEach(d => d.geo3x3 = StrArray.getUnique(codes, d.geo3x3));
-
-await Deno.writeTextFile("data/all.csv", CSV.stringify(data));
+console.log("min_len ", min);
+console.log("max_len ", max);
