@@ -86,5 +86,21 @@ class TownID {
     }
     return pcity.code;
   }
+  static async fromLGCode(code) {
+    await init();
+    if (code.length == 2) {
+      return pref.find(p => p.code == code).pref;
+    } else if (code.length == 5) {
+      const code2 = code.substring(0, 2);
+      const prefother = pref.find(p => p.code == code2).pref;
+      const hit = city.find(p => p.code == code);
+      if (!hit) {
+        return null;
+      }
+      return [prefother, hit.city];
+    } else {
+      return null;
+    }
+  }
 }
 export { TownID };

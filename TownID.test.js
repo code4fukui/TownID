@@ -31,3 +31,6 @@ Deno.test("getLGCode", async () => {
   t.assertEquals(await TownID.getLGCode("福井県鯖江市"), "18207");
   t.assertEquals(await TownID.getLGCode("鯖江市"), null);
 });
+Deno.test("fromLGCode", async () => {
+  t.assertEquals(await TownID.fromLGCode("18207"), ["福井県", "鯖江市"]);
+});
