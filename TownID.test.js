@@ -25,3 +25,6 @@ Deno.test("town", async () => {
   t.assertEquals(towns.length, 153);
   t.assertEquals(towns.find(p => p == "新横江一丁目"), "新横江一丁目");
 });
+Deno.test("getLGCode", async () => {
+  t.assertEquals(await TownID.getLGCode("福井県", "鯖江市"), "18207");
+});

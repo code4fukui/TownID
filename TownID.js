@@ -52,6 +52,16 @@ class TownID {
     return city.filter(c => c.code.startsWith(npref)).map(c => c.city);
   }
   static async getTowns(spref, scity) {
+    const ntown = await TownID.getLGCode(spref, scity);
+    if (!ntown) {
+      return null;
+    }
+    if (!town[ntown]) {
+      town[ntown] = await fetchCSV("data/town/" + ntown + ".csv");
+    }
+    return town[ntown].map(t => t.town);
+  }
+  static async getLGCode(spref, scity) {
     await init();
     const npref = pref.find(p => p.pref == spref)?.code;
     if (!npref) {
@@ -61,14 +71,7 @@ class TownID {
     if (!pcity) {
       return null;
     }
-    const ntown = pcity.code;
-    if (!ntown) {
-      return null;
-    }
-    if (!town[ntown]) {
-      town[ntown] = await fetchCSV("data/town/" + ntown + ".csv");
-    }
-    return town[ntown].map(t => t.town);
+    return pcity.code;
   }
 }
 export { TownID };
