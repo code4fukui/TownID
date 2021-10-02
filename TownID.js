@@ -65,7 +65,20 @@ class TownID {
     await init();
     const npref = pref.find(p => p.pref == spref)?.code;
     if (!npref) {
-      return null;
+      const apref = pref.find(p => spref.startsWith(p.pref));
+      if (!apref) {
+        return null;
+      }
+      const scity = spref.substring(apref.pref.length);
+      const npref = apref.code;
+      const pcity = city.find(c => c.city == scity && c.code.startsWith(npref));
+      if (!pcity) {
+        return null;
+      }
+      return pcity.code;
+    }
+    if (scity == undefined) {
+      return npref;
     }
     const pcity = city.find(c => c.city == scity && c.code.startsWith(npref));
     if (!pcity) {
