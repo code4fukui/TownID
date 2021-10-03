@@ -78,7 +78,7 @@ class TownID {
       return pcity.code;
     }
     if (scity == undefined) {
-      return npref;
+      return npref + "000";
     }
     const pcity = city.find(c => c.city == scity && c.code.startsWith(npref));
     if (!pcity) {
@@ -88,8 +88,11 @@ class TownID {
   }
   static async fromLGCode(code) {
     await init();
-    if (code.length == 2) {
-      return pref.find(p => p.code == code).pref;
+    if (code.length == 2 || code.length == 5 && code.endsWith("000")) {
+      if (code.length == 5) {
+        code = code.substring(0, 2);
+      }
+      return [pref.find(p => p.code == code).pref, null];
     } else if (code.length == 5) {
       const code2 = code.substring(0, 2);
       const prefother = pref.find(p => p.code == code2).pref;
