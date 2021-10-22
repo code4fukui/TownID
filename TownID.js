@@ -88,6 +88,9 @@ class TownID {
   }
   static async fromLGCode(code) {
     await init();
+    if (typeof code == "number") {
+      code = code.toString();
+    }
     if (code.length == 2 || code.length == 5 && code.endsWith("000")) {
       if (code.length == 5) {
         code = code.substring(0, 2);
@@ -106,4 +109,5 @@ class TownID {
     }
   }
 }
+
 export { TownID };
