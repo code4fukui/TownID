@@ -2,10 +2,6 @@
 
 約19万の日本のまちにユニークなIDを割り当てたプロジェクトです。TownIDは[Geo3x3](https://geo3x3.com/)の形式になっているので大まかな位置情報もわかります。
 
-## デモ
-
-https://code4fukui.github.io/TownID/
-
 ## 機能
 
 - 都道府県、市区町村、町単位でTownIDを取得できる

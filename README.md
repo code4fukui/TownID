@@ -1,5 +1,7 @@
 # TownID Japan
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 TownID Japan is a project that has calculated a unique ID "TownID" for approximately 190,000 towns in Japan, with the IDs being based on the Geo3x3 location encoding system.
 
 ## Features
